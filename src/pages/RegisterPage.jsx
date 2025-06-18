@@ -18,17 +18,17 @@ const RegisterPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+  e.preventDefault();
+  setError("");
 
-    try {
-      await axios.post("/auth/register", formData);
-      navigate("/login"); // Redirect na login
-    } catch (err) {
-      setError("Registracija nije uspela.");
-      console.error(err);
-    }
-  };
+  try {
+    await axios.post("/auth/register", formData);
+    navigate("/login");
+  } catch (err) {
+    setError("Registracija nije uspela.");
+    console.error(err);
+  }
+};
 
   return (
     <div className="auth-container">
