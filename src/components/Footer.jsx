@@ -2,34 +2,40 @@ import { Link } from "react-router-dom";
 import "../styles/Footer.css";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="footer">
       <div className="footer-container">
-        <div className="footer-section about">
-          <h2>Tennis Shop</h2>
+        <FooterSection title="Tennis Shop">
           <p>Tvoja omiljena destinacija za tenisku opremu.</p>
-        </div>
+        </FooterSection>
 
-        <div className="footer-section links">
-          <h3>Linkovi</h3>
+        <FooterSection title="Linkovi">
           <ul>
             <li><Link to="/">Početna</Link></li>
             <li><Link to="/products">Proizvodi</Link></li>
           </ul>
-        </div>
+        </FooterSection>
 
-        <div className="footer-section contact">
-          <h3>Kontakt</h3>
+        <FooterSection title="Kontakt">
           <p>Email: info@tennisshop.rs</p>
           <p>Telefon: +381 11 123456</p>
-        </div>
+        </FooterSection>
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} Tennis Shop. Sva prava zadržana.</p>
+        <p>&copy; {currentYear} Tennis Shop. Sva prava zadržana.</p>
       </div>
     </footer>
   );
 };
+
+const FooterSection = ({ title, children }) => (
+  <div className="footer-section">
+    <h3>{title}</h3>
+    {children}
+  </div>
+);
 
 export default Footer;
