@@ -1,36 +1,42 @@
-import "../styles/AuthForm.css";
 import { useState } from "react";
-import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
+import "../styles/AuthForm.css";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
-      const response = await axios.post("/auth/login", {
+      const { data } = await axios.post("/auth/login", {
         usernameOrEmail: formData.email,
         password: formData.password,
       });
 
-      localStorage.setItem("token", response.data.token);
-      navigate("/"); // Redirect na home
+      localStorage.setItem("token", data.token);
+      navigate("/");
     } catch (err) {
-      setError("Neispravan email ili lozinka");
-      console.error(err);
+      setError("Neispravan email ili lozinka.");
+      console.error("Login error:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,10 +45,11 @@ const LoginPage = () => {
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2>Prijavi se</h2>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="error-message">{error}</p>}
 
-        <label>Email adresa:</label>
+        <label htmlFor="email">Email adresa:</label>
         <input
+          id="email"
           type="email"
           name="email"
           value={formData.email}
@@ -50,8 +57,9 @@ const LoginPage = () => {
           required
         />
 
-        <label>Lozinka:</label>
+        <label htmlFor="password">Lozinka:</label>
         <input
+          id="password"
           type="password"
           name="password"
           value={formData.password}
@@ -59,7 +67,9 @@ const LoginPage = () => {
           required
         />
 
-        <button type="submit">Prijavi se</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Prijavljivanje..." : "Prijavi se"}
+        </button>
       </form>
     </div>
   );
