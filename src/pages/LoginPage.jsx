@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
-import "../styles/AuthForm.css";
+import "../styles/LoginPage.css";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -43,11 +43,11 @@ const LoginPage = () => {
   return (
     <div className="auth-container">
       <form className="auth-form" onSubmit={handleSubmit}>
-        <h2>Prijavi se</h2>
+        <h2>Login</h2>
 
         {error && <p className="error-message">{error}</p>}
 
-        <label htmlFor="email">Email adresa:</label>
+        <label htmlFor="email">Email:</label>
         <input
           id="email"
           type="email"
@@ -57,7 +57,7 @@ const LoginPage = () => {
           required
         />
 
-        <label htmlFor="password">Lozinka:</label>
+        <label htmlFor="password">Password:</label>
         <input
           id="password"
           type="password"
@@ -68,7 +68,7 @@ const LoginPage = () => {
         />
 
         <button type="submit" disabled={loading}>
-          {loading ? "Prijavljivanje..." : "Prijavi se"}
+          {loading ? "Prijavljivanje..." : "Login"}
         </button>
       </form>
     </div>

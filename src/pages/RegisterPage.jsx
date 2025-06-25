@@ -1,7 +1,7 @@
-import "../styles/AuthForm.css";
 import { useState } from "react";
-import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
+import "../styles/RegisterPage.css";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -13,58 +13,61 @@ const RegisterPage = () => {
 
   const [error, setError] = useState("");
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = ({ target: { name, value } }) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError("");
+    e.preventDefault();
+    setError("");
 
-  try {
-    await axios.post("/auth/register", formData);
-    navigate("/login");
-  } catch (err) {
-    setError("Registracija nije uspela.");
-    console.error(err);
-  }
-};
+    try {
+      await axios.post("/auth/register", formData);
+      navigate("/login");
+    } catch (err) {
+      setError("Registracija nije uspela.");
+      console.error(err);
+    }
+  };
 
   return (
     <div className="auth-container">
       <form className="auth-form" onSubmit={handleSubmit}>
-        <h2>Registruj se</h2>
+        <h2>Register</h2>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <div className="error-message">{error}</div>}
 
-        <label>Korisničko ime:</label>
+        <label htmlFor="username">Username:</label>
         <input
           type="text"
+          id="username"
           name="username"
           value={formData.username}
           onChange={handleChange}
           required
         />
 
-        <label>Email adresa:</label>
+        <label htmlFor="email">Email:</label>
         <input
           type="email"
+          id="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
           required
         />
 
-        <label>Lozinka:</label>
+        <label htmlFor="password">Password:</label>
         <input
           type="password"
+          id="password"
           name="password"
           value={formData.password}
           onChange={handleChange}
           required
         />
 
-        <button type="submit">Registruj se</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
