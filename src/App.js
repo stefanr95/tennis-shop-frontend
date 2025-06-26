@@ -8,30 +8,30 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import ProductPage from "./pages/ProductPage";
 import AddProductPage from "./pages/AddProductPage";
-import AdminProducts from "./pages/AdminProducts.jsx"
+import AdminProducts from "./pages/AdminProducts";
+
+const HomePage = () => (
+  <>
+    <HeroSection />
+    <FeaturedProducts />
+    <CategoriesSection />
+  </>
+);
 
 function App() {
   return (
     <Router>
       <Header />
+
       <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <HeroSection />
-              <FeaturedProducts />
-              <CategoriesSection />
-            </>
-          }
-        />
+        <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/admin/add-product" element={<AddProductPage />} />
         <Route path="/admin/products" element={<AdminProducts />} />
-
       </Routes>
+
       <Footer />
     </Router>
   );
