@@ -25,7 +25,7 @@ const RegisterPage = () => {
       await axios.post("/auth/register", formData);
       navigate("/login");
     } catch (err) {
-      setError("Registracija nije uspela.");
+      setError("Registration failed.");
       console.error(err);
     }
   };

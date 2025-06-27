@@ -8,24 +8,24 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         <FooterSection title="Tennis Shop">
-          <p>Tvoja omiljena destinacija za tenisku opremu.</p>
+          <p>Your favorite place for tennis equipment.</p>
         </FooterSection>
 
-        <FooterSection title="Linkovi">
+        <FooterSection title="Links">
           <ul>
-            <li><Link to="/">Početna</Link></li>
-            <li><Link to="/products">Proizvodi</Link></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/products">Products</Link></li>
           </ul>
         </FooterSection>
 
-        <FooterSection title="Kontakt">
+        <FooterSection title="Contact">
           <p>Email: info@tennisshop.rs</p>
-          <p>Telefon: +381 11 123456</p>
+          <p>Phone: +381 11 123456</p>
         </FooterSection>
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; {currentYear} Tennis Shop. Sva prava zadržana.</p>
+        <p>&copy; {currentYear} Tennis Shop. All rights reserved.</p>
       </div>
     </footer>
   );

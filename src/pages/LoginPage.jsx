@@ -33,7 +33,7 @@ const LoginPage = () => {
       localStorage.setItem("token", data.token);
       navigate("/");
     } catch (err) {
-      setError("Neispravan email ili lozinka.");
+      setError("Invalid email or password.");
       console.error("Login error:", err);
     } finally {
       setLoading(false);
@@ -68,7 +68,7 @@ const LoginPage = () => {
         />
 
         <button type="submit" disabled={loading}>
-          {loading ? "Prijavljivanje..." : "Login"}
+          {loading ? "Signing in..." : "Login"}
         </button>
       </form>
     </div>

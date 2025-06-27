@@ -3,9 +3,9 @@ import "../styles/HeroSection.css";
 import { Link } from "react-router-dom";
 
 const images = [
-  "https://www.toptenis.rs/image/cache/catalog/yonex/PERCEPT%20100%20-%20Olive%20Green%20-%201a-510x600.png", // Reket
-  "https://dingdongshop.rs/wp-content/uploads/2021/08/33-1-600x600.jpg", // Teniske loptice
-  "https://www.tenisreketi.com/fajlovi/product/big/Head%20Djokovic%2012R%20Monstercombi%20Racket%20Bag%20-%20Black,%20White.jpg"  // Torba
+  "https://www.toptenis.rs/image/cache/catalog/yonex/PERCEPT%20100%20-%20Olive%20Green%20-%201a-510x600.png", 
+  "https://dingdongshop.rs/wp-content/uploads/2021/08/33-1-600x600.jpg", 
+  "https://www.tenisreketi.com/fajlovi/product/big/Head%20Djokovic%2012R%20Monstercombi%20Racket%20Bag%20-%20Black,%20White.jpg"  
 ];
 
 const HeroSection = () => {
@@ -22,26 +22,26 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="hero">
+    <section className="hero">
       <Slider {...settings}>
         {images.map((img, index) => (
           <div key={index}>
             <div
               className="hero-slide"
-              style={{
-                backgroundImage: `url(${img})`,
-              }}
+              style={{ backgroundImage: `url(${img})` }}
             >
               <div className="hero-overlay">
                 <h1>Tennis Shop</h1>
-                <p>Najkvalitetnija teniska oprema na jednom mestu</p>
-                <Link to="/products" className="hero-btn">Pogledaj proizvode</Link>
+                <p>Top Quality Tennis Gear in One Place</p>
+                <Link to="/products" className="hero-btn">
+                  View Products
+                </Link>
               </div>
             </div>
           </div>
         ))}
       </Slider>
-    </div>
+    </section>
   );
 };
 
