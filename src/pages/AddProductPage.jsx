@@ -15,9 +15,10 @@ const AddProductPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
     }));
   };
 
@@ -35,7 +36,7 @@ const AddProductPage = () => {
         }
       });
 
-      setSuccessMessage("Proizvod uspešno dodat.");
+      setSuccessMessage("Product added successfully.");
       setFormData({
         name: "",
         description: "",
@@ -43,26 +44,66 @@ const AddProductPage = () => {
         imageUrl: "",
         category: ""
       });
-    } catch (err) {
-      console.error(err);
-      setErrorMessage("Greška prilikom dodavanja proizvoda.");
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("Failed to add product. Please try again.");
     }
   };
 
   return (
     <div className="add-product-container">
-      <h2>Dodaj novi proizvod</h2>
+      <h2>Add New Product</h2>
+
       <form onSubmit={handleSubmit} className="add-product-form">
-        <input type="text" name="name" placeholder="Naziv" value={formData.name} onChange={handleChange} required />
-        <textarea name="description" placeholder="Opis" value={formData.description} onChange={handleChange} required />
-        <input type="number" name="price" placeholder="Cena" value={formData.price} onChange={handleChange} required />
-        <input type="text" name="imageUrl" placeholder="URL slike" value={formData.imageUrl} onChange={handleChange} required />
-        <input type="text" name="category" placeholder="Kategorija" value={formData.category} onChange={handleChange} required />
-        <button type="submit">Dodaj proizvod</button>
+        <input
+          type="text"
+          name="name"
+          placeholder="Product Name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+
+        <textarea
+          name="description"
+          placeholder="Product Description"
+          value={formData.description}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="number"
+          name="price"
+          placeholder="Price"
+          value={formData.price}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="text"
+          name="imageUrl"
+          placeholder="Image URL"
+          value={formData.imageUrl}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="text"
+          name="category"
+          placeholder="Category"
+          value={formData.category}
+          onChange={handleChange}
+          required
+        />
+
+        <button type="submit">Add Product</button>
       </form>
 
-      {successMessage && <p className="success">{successMessage}</p>}
-      {errorMessage && <p className="error">{errorMessage}</p>}
+      {successMessage && <p className="success-message">{successMessage}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 };
