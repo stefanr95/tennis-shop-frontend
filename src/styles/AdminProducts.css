@@ -1,0 +1,60 @@
+.admin-products-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2, h3 {
+  text-align: center;
+  color: #2c3e50;
+}
+
+.status-message {
+  text-align: center;
+  color: green;
+  margin-bottom: 15px;
+}
+
+.product-form input,
+.product-form textarea,
+.product-form button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.product-form button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.product-form button:hover {
+  background-color: #2980b9;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.product-table th,
+.product-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.product-table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.product-table img {
+  object-fit: cover;
+  border-radius: 4px;
+}
