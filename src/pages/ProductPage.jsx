@@ -15,7 +15,7 @@ const ProductPage = () => {
 
   return (
     <div className="product-page">
-      <h2 className="product-page-title">Svi proizvodi</h2>
+      <h2 className="product-page-title">Products</h2>
       <div className="product-grid">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />

@@ -5,9 +5,11 @@
 }
 
 .hero-slide {
-  height: 90vh;
+  height: 83vh;
   background-size: cover;
-  background-position: center;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #000; /* crna pozadina iza slike */
   position: relative;
 }
 
@@ -17,7 +19,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
   justify-content: center;
