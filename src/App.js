@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import ProductPage from "./pages/ProductPage";
 import AddProductPage from "./pages/AddProductPage";
 import AdminProducts from "./pages/AdminProducts";
+import CartPage from "./pages/CartPage.jsx"
 
 const HomePage = () => (
   <>
@@ -30,6 +31,7 @@ function App() {
         <Route path="/products" element={<ProductPage />} />
         <Route path="/admin/add-product" element={<AddProductPage />} />
         <Route path="/admin/products" element={<AdminProducts />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
 
       <Footer />
