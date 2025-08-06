@@ -8,7 +8,13 @@ const ProductCard = ({ product }) => {
       quantity: 1, 
     };
 
-    axios.post("/cart", cartItem)
+    const token = localStorage.getItem("token");
+
+    axios.post("/cart", cartItem, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then(() => {
         alert("Proizvod dodat u korpu!");
       })
