@@ -5,7 +5,9 @@ const Header = () => {
   const navItems = [
     { path: "/login", label: "Login" },
     { path: "/register", label: "Register" },
+    { path: "/register-admin", label: "Register Admin" },
     { path: "/cart", label: "Cart" }
+    
   ];
 
   return (

@@ -7,9 +7,9 @@ import CategoriesSection from "./components/CategoriesSection";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import ProductPage from "./pages/ProductPage";
-import AddProductPage from "./pages/AddProductPage";
 import AdminProducts from "./pages/AdminProducts";
 import CartPage from "./pages/CartPage.jsx"
+import RegisterAdminPage from "./pages/RegisterAdminPage.jsx";
 
 const HomePage = () => (
   <>
@@ -27,9 +27,9 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegisterPage />} />
+         <Route path="/register-admin" element={<RegisterAdminPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/products" element={<ProductPage />} />
-        <Route path="/admin/add-product" element={<AddProductPage />} />
         <Route path="/admin/products" element={<AdminProducts />} />
         <Route path="/cart" element={<CartPage />} />
       </Routes>
