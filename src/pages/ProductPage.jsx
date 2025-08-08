@@ -7,16 +7,12 @@ const ProductPage = ({ searchTerm }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  useEffect(() => {
+ useEffect(() => {
     axios
-      .get("/products")
-      .then((res) => {
-        const data = res.data.content || [];
-        setProducts(data);
-        setFilteredProducts(data);
-      })
+      .get("/products", { params: { searchTerm } })
+      .then((res) => setProducts(res.data.content))
       .catch((err) => console.error(err));
-  }, []);
+  }, [searchTerm]); 
 
   useEffect(() => {
     const safeSearchTerm = searchTerm ? searchTerm.toLowerCase() : "";
