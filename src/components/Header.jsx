@@ -1,14 +1,30 @@
 import { Link } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
+import { useState, useEffect } from "react";
 import "../styles/Header.css";
 
-const Header = () => {
+const Header = ({ onSearch }) => {
   const navItems = [
     { path: "/login", label: "Login" },
-    { path: "/register", label: "Register" },
-    { path: "/register-admin", label: "Register Admin" },
-    { path: "/cart", label: "Cart" }
-    
+    { path: "/register-admin", label: "Register Admin" }
   ];
+
+  const [cartCount, setCartCount] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    setCartCount(totalQuantity);
+  }, []);
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    if(onSearch) {
+      onSearch(value); 
+    }
+  };
 
   return (
     <header className="main-header">
@@ -20,6 +36,8 @@ const Header = () => {
           placeholder="Search products..."
           className="search-bar"
           aria-label="Search products"
+          value={searchTerm}
+          onChange={handleSearchChange}
         />
 
         <nav className="nav-links">
@@ -28,6 +46,27 @@ const Header = () => {
               {label}
             </Link>
           ))}
+
+          <Link to="/cart" className="cart-link" style={{ position: "relative" }}>
+            <FaShoppingCart size={24} />
+            {cartCount > 0 && (
+              <span
+                style={{
+                  position: "absolute",
+                  top: "-8px",
+                  right: "-10px",
+                  backgroundColor: "red",
+                  color: "white",
+                  borderRadius: "50%",
+                  padding: "2px 6px",
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                }}
+              >
+                {cartCount}
+              </span>
+            )}
+          </Link>
         </nav>
       </div>
     </header>

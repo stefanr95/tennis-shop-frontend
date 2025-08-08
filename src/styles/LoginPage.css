@@ -2,14 +2,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100dvh;
-  background-image: url('../assets//images/Background.png');
+  min-height: 100vh;
+  background-image: url('../assets/images/Background.png');
   background-size: cover;
-  background-position: center center;
+  background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
   padding: 2rem;
-  box-sizing: border-box;
 }
 
 .auth-form {

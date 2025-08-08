@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import "../styles/LoginPage.css";
 
@@ -7,16 +7,18 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    usernameOrEmail: "",
+    password: ""
   });
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -26,14 +28,14 @@ const LoginPage = () => {
 
     try {
       const { data } = await axios.post("/auth/login", {
-        usernameOrEmail: formData.email,
+        usernameOrEmail: formData.usernameOrEmail,
         password: formData.password,
       });
 
       localStorage.setItem("token", data.token);
       navigate("/");
     } catch (err) {
-      setError("Invalid email or password.");
+      setError("Invalid email.");
       console.error("Login error:", err);
     } finally {
       setLoading(false);
@@ -45,21 +47,19 @@ const LoginPage = () => {
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
 
-        {error && <p className="error-message">{error}</p>}
+        {error && <p className="error-text">{error}</p>}
 
-        <label htmlFor="email">Email:</label>
+        <label>Email</label>
         <input
-          id="email"
-          type="email"
-          name="email"
-          value={formData.email}
+          type="text"
+          name="usernameOrEmail"
+          value={formData.usernameOrEmail}
           onChange={handleChange}
           required
         />
 
-        <label htmlFor="password">Password:</label>
+        <label>Password</label>
         <input
-          id="password"
           type="password"
           name="password"
           value={formData.password}
@@ -68,8 +68,12 @@ const LoginPage = () => {
         />
 
         <button type="submit" disabled={loading}>
-          {loading ? "Signing in..." : "Login"}
+          {loading ? "Logging in..." : "Login"}
         </button>
+
+        <p>
+          Don't have an account? <Link to="/register">Register here</Link>
+        </p>
       </form>
     </div>
   );
