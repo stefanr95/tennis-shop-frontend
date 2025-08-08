@@ -3,28 +3,19 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import "../styles/Header.css";
 
-const Header = ({ onSearch }) => {
+const Header = ({ searchTerm, setSearchTerm }) => {
   const navItems = [
     { path: "/login", label: "Login" },
     { path: "/register-admin", label: "Register Admin" }
   ];
 
   const [cartCount, setCartCount] = useState(0);
-  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
     setCartCount(totalQuantity);
   }, []);
-
-  const handleSearchChange = (e) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    if(onSearch) {
-      onSearch(value); 
-    }
-  };
 
   return (
     <header className="main-header">
@@ -37,7 +28,7 @@ const Header = ({ onSearch }) => {
           className="search-bar"
           aria-label="Search products"
           value={searchTerm}
-          onChange={handleSearchChange}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
 
         <nav className="nav-links">

@@ -11,15 +11,17 @@ const ProductPage = ({ searchTerm }) => {
     axios
       .get("/products")
       .then((res) => {
-        setProducts(res.data.content);
-        setFilteredProducts(res.data.content);
+        const data = res.data.content || [];
+        setProducts(data);
+        setFilteredProducts(data);
       })
       .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
-    const filtered = products.filter((product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    const safeSearchTerm = searchTerm ? searchTerm.toLowerCase() : "";
+    const filtered = products.filter(
+      (product) => product?.name && product.name.toLowerCase().includes(safeSearchTerm)
     );
     setFilteredProducts(filtered);
   }, [searchTerm, products]);
