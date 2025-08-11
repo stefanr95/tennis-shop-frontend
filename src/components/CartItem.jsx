@@ -13,20 +13,21 @@ const CartItem = ({ item, onRemove, onQuantityChange }) => {
 
         <div className="quantity-control">
           <button 
-            onClick={() => onQuantityChange(item.id, quantity - 1)}
-            disabled={quantity <= 1}
-          >
-            -
-          </button>
-          <span>{quantity}</span>
-          <button onClick={() => onQuantityChange(item.id, quantity + 1)}>+</button>
+  onClick={() => onQuantityChange(item.product.id, quantity - 1)}
+  disabled={quantity <= 1}
+>
+  -
+</button>
+<span>{quantity}</span>
+<button onClick={() => onQuantityChange(item.product.id, quantity + 1)}>+</button>
         </div>
 
         <p>Ukupno: {product.price * quantity} RSD</p>
 
-        <button className="remove-btn" onClick={() => onRemove(item.id)}>
-          Ukloni
-        </button>
+       <button className="remove-btn" onClick={() => onRemove(item.product.id)}>
+  Ukloni
+</button>
+
       </div>
     </div>
   );

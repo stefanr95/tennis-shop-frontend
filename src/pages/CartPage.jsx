@@ -16,18 +16,18 @@ const CartPage = () => {
     fetchCartItems();
   }, []);
 
-  const handleRemove = (cartItemId) => {
-    axios.delete(`/cart/${cartItemId}`)
-      .then(() => fetchCartItems())
-      .catch((err) => console.error("Greška prilikom uklanjanja iz korpe:", err));
-  };
+  const handleRemove = (productId) => {
+  axios.delete(`/cart/${productId}`)
+    .then(() => fetchCartItems())
+    .catch((err) => console.error("Greška prilikom uklanjanja iz korpe:", err));
+};
 
-  const handleQuantityChange = (cartItemId, newQuantity) => {
-    if (newQuantity < 1) return;
-    axios.put(`/cart/${cartItemId}`, { quantity: newQuantity })
-      .then(() => fetchCartItems())
-      .catch((err) => console.error("Greška prilikom menjanja količine:", err));
-  };
+  const handleQuantityChange = (productId, newQuantity) => {
+  if (newQuantity < 1) return;
+  axios.put(`/cart/${productId}`, { quantity: newQuantity })
+    .then(() => fetchCartItems())
+    .catch((err) => console.error("Greška prilikom menjanja količine:", err));
+};
 
   const total = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 
