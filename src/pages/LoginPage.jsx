@@ -22,25 +22,27 @@ const LoginPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+  e.preventDefault();
+  setError("");
+  setLoading(true);
 
-    try {
-      const { data } = await axios.post("/auth/login", {
-        usernameOrEmail: formData.usernameOrEmail,
-        password: formData.password,
-      });
+  try {
+    const { data } = await axios.post("/auth/login", {
+      usernameOrEmail: formData.usernameOrEmail,
+      password: formData.password,
+    });
 
-      localStorage.setItem("token", data.token);
-      navigate("/");
-    } catch (err) {
-      setError("Invalid email.");
-      console.error("Login error:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    localStorage.setItem("token", data.accessToken);
+    localStorage.setItem("refreshToken", data.refreshToken);
+
+    navigate("/");
+  } catch (err) {
+    setError("Invalid email or password.");
+    console.error("Login error:", err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="auth-container">
