@@ -23,14 +23,24 @@ instance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
+    if (originalRequest.url.includes("/auth/refresh-token")) {
+      return Promise.reject(error);
+    }
+
     if (error.response?.status === 403 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
         const refreshToken = localStorage.getItem("refreshToken");
-        const res = await axios.post("http://localhost:8080/api/auth/refresh-token", {
-          refreshToken: refreshToken,
-        });
+
+        if (!refreshToken) {
+          return Promise.reject(error);
+        }
+
+        const res = await axios.post(
+          "http://localhost:8080/api/auth/refresh-token",
+          { refreshToken }
+        );
 
         localStorage.setItem("token", res.data.accessToken);
 
@@ -38,9 +48,11 @@ instance.interceptors.response.use(
         return instance(originalRequest);
       } catch (err) {
         console.error("Refresh token failed:", err);
+
         localStorage.removeItem("token");
         localStorage.removeItem("refreshToken");
-        window.location.href = "/login";
+
+        return Promise.reject(err);
       }
     }
 
