@@ -1,4 +1,4 @@
- import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../api/axios";
 import CartItem from "../components/CartItem";
 import "../styles/CartPage.css";
@@ -6,53 +6,68 @@ import "../styles/CartPage.css";
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
 
-  const fetchCartItems = () => {
-    axios.get("/cart")
-      .then((res) => setCartItems(res.data))
-      .catch((err) => console.error("Greška prilikom dohvaćanja korpe:", err));
-  };
-
   useEffect(() => {
     fetchCartItems();
   }, []);
 
-  const handleRemove = (productId) => {
-  axios.delete(`/cart/${productId}`)
-    .then(() => fetchCartItems())
-    .catch((err) => console.error("Greška prilikom uklanjanja iz korpe:", err));
-};
+  // Fetch all cart items
+  const fetchCartItems = async () => {
+    try {
+      const { data } = await axios.get("/cart");
+      setCartItems(data);
+    } catch (err) {
+      console.error("Error fetching cart items:", err);
+    }
+  };
 
-  const handleQuantityChange = (productId, newQuantity) => {
-  if (newQuantity < 1) return;
-  axios.put(`/cart/${productId}`, { quantity: newQuantity })
-    .then(() => fetchCartItems())
-    .catch((err) => console.error("Greška prilikom menjanja količine:", err));
-};
+  // Remove item from cart
+  const handleRemove = async (productId) => {
+    try {
+      await axios.delete(`/cart/${productId}`);
+      fetchCartItems();
+    } catch (err) {
+      console.error("Error removing item from cart:", err);
+    }
+  };
 
-  const total = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  // Update quantity
+  const handleQuantityChange = async (productId, newQuantity) => {
+    if (newQuantity < 1) return;
+
+    try {
+      await axios.put(`/cart/${productId}`, { quantity: newQuantity });
+      fetchCartItems();
+    } catch (err) {
+      console.error("Error updating item quantity:", err);
+    }
+  };
+
+  // Total price
+  const total = cartItems.reduce(
+    (sum, item) => sum + item.product.price * item.quantity,
+    0
+  );
 
   return (
     <div className="cart-page">
-      <h2>Vaša korpa</h2>
+      <h2>Your Shopping Cart</h2>
 
       {cartItems.length === 0 ? (
-        <p>Korpa je prazna.</p>
+        <p>Your cart is empty.</p>
       ) : (
         <>
           {cartItems.map((item) => (
-            <CartItem 
-              key={item.id} 
-              item={item} 
-              onRemove={handleRemove} 
-              onQuantityChange={handleQuantityChange} 
+            <CartItem
+              key={item.id}
+              item={item}
+              onRemove={handleRemove}
+              onQuantityChange={handleQuantityChange}
             />
           ))}
 
           <div className="total-section">
-            <h3>Ukupno: {total} RSD</h3>
-            <button className="checkout-btn">
-              Nastavi na plaćanje
-            </button>
+            <h3>Total: {total} RSD</h3>
+            <button className="checkout-btn">Proceed to Checkout</button>
           </div>
         </>
       )}
